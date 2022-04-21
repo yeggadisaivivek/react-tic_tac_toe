@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import logo from "./logo.svg";
 import Icon from "./components/icon";
 
@@ -8,12 +8,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { Card, CardBody, Container, Button, Col, Row } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
+import ThemeContext from "./context/ThemeContext";
+import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
+import AppTheme from "./Colors";
+import ChangeTheme from "./components/ChangeTheme";
 
 const itemArray = new Array(9).fill("empty");
 
 const App = () => {
   const [isCross, setIsCross] = useState(false);
   const [winMessage, setWinMessage] = useState("");
+ 
+
 
   const reloadGame = () => {
     setIsCross(false);
@@ -88,9 +95,17 @@ const App = () => {
 
     checkIsWinner();
   };
+  const [newState,setNewState1] = useState(1)
+  const theme = useContext(ThemeContext)[0];
+  console.log("theme: ",theme);
+  const themeHook = useState("light");
+  const currectTheme = AppTheme[theme];
 
   return (
-    <Container className="p-5">
+    
+      
+    <Container className="p-5" style={{backgroundColor:`${currectTheme.backgroundColor}`}}>
+      <ChangeTheme />
       <ToastContainer position="bottom-center" />
       <Row>
         <Col md={6} className="offset-md-3">
